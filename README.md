@@ -23,3 +23,17 @@ O projeto tem o intuito de desmostrar conhecimento a respeito da matéria, para 
 - [Robust background job processing](https://laravel.com/docs/queues).
 - [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
+
+## Rotas
+
+<table>
+    <tr>
+        <th>Verbo</th>
+        <th>URI</th>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/produtos/listar</td>
+    </tr>
+</table>
+
