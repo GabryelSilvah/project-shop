@@ -15,7 +15,8 @@
     <nav class="menu">
         <ul>
             <li><a href="/produtos">Produtos</a></li>
-            <li><a href="/pedidos">Pedidos</a></li>
+            <li><a href="/listar_pedidos">Pedidos</a></li>
+            <li><a href="/encerrar_sessao">Sair</a></li>
         </ul>
     </nav>
 
@@ -42,8 +43,8 @@
                         echo "<td>" . $produto["nome"] . "</td>";
                         echo "<td>" . $produto["preco_uni"] . "</td>";
                         echo "<td>" . $produto["quantidade"] . "</td>";
-                        echo "<td><button type='button' class='btn alterar'>Editar</button></td>";
-                        echo "<td><button type='button' class='btn deletar'>Deletar</button></td>";
+                        echo "<td><a href='/alterar_produto/" . $produto["id"] . "' class='btn alterar'>Editar</a></td>";
+                        echo "<td><a href='/excluir_produto/" . $produto["id"] . "' class='btn deletar'>Deletar</a></td>";
                         echo "</tr>";
                     }
                 }
@@ -57,7 +58,7 @@
         <section class="container_formulaio" id="form_produtos">
 
             <form action="cadastrar" class="formulario" method="POST">
-              @csrf
+                @csrf
                 <div class="fechar_aba" id="fechar_aba_produtos">
                 </div>
 
@@ -73,6 +74,7 @@
                 <button type="submit">Cadastrar</button>
             </form>
         </section>
+
     </main>
 
 </body>

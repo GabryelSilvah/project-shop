@@ -29,7 +29,31 @@ class ProdutoController extends Controller
         return to_route("produtos.listar");
     }
 
-    public function alterar_produto() {}
+    public function form_alterar_produto(Request $request)
+    {
 
-    public function excluir_produto() {}
+        $dados = ProdutoModel::find($request->id);
+
+        return view("Alterar", ["edit_produto" => $dados]);
+    }
+
+    public function update($id, Request $request)
+    {
+
+        ProdutoModel::where("id", "=", $id)->update(
+            [
+                "nome" => $request->nome_produto,
+                "quantidade" => $request->quantidade,
+                "preco_uni" => $request->preco_uni
+            ]
+        );
+
+        return to_route("produtos.listar");
+    }
+
+    public function delete($id)
+    {
+        ProdutoModel::where("id", "=", $id)->delete();
+        return to_route("produtos.listar");
+    }
 }
