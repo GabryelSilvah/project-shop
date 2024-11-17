@@ -23,11 +23,11 @@
     </header>
 
     <main>
-  
+
         <!-- Formulário de cadastro de produtos -->
         <section class="container_formulaio" id="form_produtos" style="display: flex;">
 
-           
+
 
             <form action="<?php echo $pedido['id']; ?>" class="formulario" method="POST">
                 @csrf
@@ -40,8 +40,8 @@
                     <?php
 
 
-                    if (!empty($produtos)) {
-                        foreach ($produtos as $produto) {
+                    if (!empty($produtoAll)) {
+                        foreach ($produtoAll as $produto) {
 
                             echo " <option value='" . $produto["id"] . "'>" . $produto["nome"] . "</option>";
                         }
@@ -60,17 +60,18 @@
                 <input type="text" name="quantidade_pedidos" class="input_comum" value="<?php echo $pedido['quant_pedido']; ?>" required>
 
                 <button type="submit">Concluír Pedido</button>
+                <a href="/listar_pedidos">Voltar</a>
 
                 <?php
-            if (!empty($mensagem)) {
+                if (!empty($mensagem)) {
 
-                echo "<p>" . $mensagem . "</p>";
-            }
+                    echo "<p>" . $mensagem . "</p>";
+                }
 
-            ?>
+                ?>
             </form>
 
-            
+
         </section>
     </main>
 

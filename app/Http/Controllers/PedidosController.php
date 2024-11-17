@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PedidosModel;
 use App\Models\ProdutoModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PedidosController extends Controller
 {
@@ -16,26 +17,39 @@ class PedidosController extends Controller
         $dados = $model->all();
         $dadosPedidos = $modelPedidos->all();
 
+        $dadosJOIN = DB::table("pedidos")
+            ->join("produtos", "produtos.id", "=", "pedidos.fk_produtos")
+            ->select("*", "pedidos.id AS id_pedidos")
+            ->get();
 
 
-        return view("Pedidos", ["produtos" => $dados, "pedidos" => $dadosPedidos]);
+        return view("Pedidos", ["produtos" => $dados, "pedidos" => $dadosJOIN]);
     }
     //Insert
     public function registrar(Request $request)
     {
-        $modelProdutos = new ProdutoModel();
-        $dadosProdutos = $modelProdutos->all()->where("id", "=", $request->nome_produto);
 
-        //
         $model =  new PedidosModel();
+        $produtos =  ProdutoModel::find($request->nome_produto);
 
-        $model->nome_cliente = $request->nome_cliente;
-        $model->quant_pedido = $request->quantidade_pedidos;
-        $model->preco_total =  ($dadosProdutos[0]->preco_uni * $request->quantidade_pedidos);
-        $model->fk_produtos = $request->nome_produto;
+        if ($produtos->quantidade > $request->quantidade_pedidos) {
 
-        $model->save();
+            ProdutoModel::where("id", "=", $request->nome_produto)->update(
+                [
+                    "quantidade" => ($produtos->quantidade - $request->quantidade_pedidos)
+                ]
+            );
 
+
+            $model->nome_cliente = $request->nome_cliente;
+            $model->quant_pedido = $request->quantidade_pedidos;
+            $model->preco_total =  $this->preco_total_pedido($request, $request->quantidade_pedidos);
+            $model->fk_produtos = $request->nome_produto;
+
+            $model->save();
+
+            return to_route("listar_pedidos");
+        }
         return to_route("listar_pedidos");
     }
     //Update
@@ -43,19 +57,32 @@ class PedidosController extends Controller
     {
 
         $dadosPedido =  PedidosModel::find($id);
-        $dadosProdutos = ProdutoModel::find($dadosPedido->fk_produtos);
 
-        return view("Alterar_pedido", ["produto" => $dadosProdutos, "pedido" => $dadosPedido, "mensagem" => $mensagem]);
+        $dadosProdutosFind = ProdutoModel::find($dadosPedido->fk_produtos);
+        $dadosProdutosAll = ProdutoModel::all();
+
+        return view("Alterar_pedido", [
+            "produto" => $dadosProdutosFind,
+            "produtoAll" => $dadosProdutosAll,
+            "pedido" => $dadosPedido,
+            "mensagem" => $mensagem
+        ]);
     }
     public function alterar($id, Request $request)
     {
         $dadosPedido =  PedidosModel::find($id);
         $dadosProdutos = ProdutoModel::find($dadosPedido->fk_produtos);
 
-        if ($dadosProdutos->quantidade > $request->quantidade_pedidos) {
 
+        //Verificar se a quantidade em estoque (contando com os item já contidos no pedido) é maio ou igual a alteração do pedido
+        if (($dadosProdutos->quantidade + $dadosPedido->quant_pedido) >= $request->quantidade_pedidos) {
 
-
+            $produtos =  ProdutoModel::find($request->nome_produto);
+            ProdutoModel::where("id", "=", $request->nome_produto)->update(
+                [
+                    "quantidade" => (($produtos->quantidade + $dadosPedido->quant_pedido) - $request->quantidade_pedidos)
+                ]
+            );
 
 
             PedidosModel::where("id", "=", $id)->update(
@@ -66,6 +93,7 @@ class PedidosController extends Controller
                     "fk_produtos" => $request->nome_produto
                 ]
             );
+
             return to_route("listar_pedidos");
         }
 
@@ -81,8 +109,8 @@ class PedidosController extends Controller
     //Returnar preço total de todo o pedido feito pelo cliente
     public function preco_total_pedido(Request $request, $quantidade)
     {
-        $modelProdutos = new ProdutoModel();
-        $dadosProdutos = $modelProdutos->all()->where("id", "=", $request->nome_produto);
+
+        $dadosProdutos = ProdutoModel::where("id", "=", $request->nome_produto)->get();
 
 
         return $quantidade * $dadosProdutos[0]->preco_uni;

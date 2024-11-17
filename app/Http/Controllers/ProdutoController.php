@@ -9,12 +9,15 @@ class ProdutoController extends Controller
 {
     public $model;
 
-    public function listar_produtos()
+    public function listar_produtos(Request $request)
     {
+        if (!empty($request->session()->get("usuario_logado"))) {
 
-        $dados = ProdutoModel::all();
+            $dados = ProdutoModel::all();
 
-        return view("Produtos", ["produtos" => $dados]);
+            return view("Produtos", ["produtos" => $dados]);
+        }
+        return view("login");
     }
 
     public function cadastrar(Request $request)

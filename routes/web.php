@@ -6,6 +6,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AutenticacaoController;
 use App\Http\Controllers\PedidosController;
 
+Route::get("/", [AutenticacaoController::class, "form_login"]);
 Route::get("/login", [AutenticacaoController::class, "form_login"])->name("login");
 Route::post("/logar", [AutenticacaoController::class, "autenticar"]);
 Route::get("/cadastrar", [AutenticacaoController::class, "form_cadastro"]);

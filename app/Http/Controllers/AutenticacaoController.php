@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\UsuarioModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 
 class AutenticacaoController extends Controller
@@ -27,6 +27,7 @@ class AutenticacaoController extends Controller
     public function autenticar(Request $request)
     {
         $usuario = UsuarioModel::where("email", "=", $request->email)->first();
+        
         if (password_verify($request->senha,  $usuario->senha)) {
 
             $request->session()->put("usuario_logado", $usuario->email);
@@ -50,6 +51,7 @@ class AutenticacaoController extends Controller
 
     public function sair()
     {
+        Session::flush(); 
         return to_route("login");
     }
     public function excluir_conta() {}

@@ -22,7 +22,7 @@
 
     <main>
         <section class="container_produtos">
-            <button type="button" class="btn" id="button_produtos">Cadastrar</button>
+            <button type="button" class="btn" id="button_produtos">Fazer Pedido</button>
             <table class="tabela_produtos">
                 <tr class="cabecalho">
                     <th>Produto</th>
@@ -39,12 +39,12 @@
 
                     foreach ($pedidos as $pedido) {
                         echo "<tr>";
-                        echo "<td>" . $pedido["fk_produtos"] . "</td>";
-                        echo "<td>" . $pedido["nome_cliente"] . "</td>";
-                        echo "<td>" . $pedido["preco_total"] . ",00</td>";
-                        echo "<td>" . $pedido["quant_pedido"] . "</td>";
-                        echo "<td><a href='/alterar_pedido/" . $pedido["id"] . "' class='btn alterar'>Editar</a></td>";
-                        echo "<td><a href='/excluir_pedido/" . $pedido["id"] . "' class='btn deletar'>Deletar</a></td>";
+                        echo "<td>" . $pedido->nome . "</td>";
+                        echo "<td>" . $pedido->nome_cliente . "</td>";
+                        echo "<td>" . $pedido->preco_total . ",00</td>";
+                        echo "<td>" . $pedido->quant_pedido . "</td>";
+                        echo "<td><a href='/alterar_pedido/" . $pedido->id_pedidos . "' class='btn alterar'>Editar</a></td>";
+                        echo "<td><a href='/excluir_pedido/" . $pedido->id_pedidos . "' class='btn deletar'>Deletar</a></td>";
                         echo "</tr>";
                     }
                 }
