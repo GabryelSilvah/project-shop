@@ -16,7 +16,6 @@ class AutenticacaoController extends Controller
         return view("login");
     }
 
-
     public function form_cadastro()
     {
 
@@ -27,7 +26,7 @@ class AutenticacaoController extends Controller
     public function autenticar(Request $request)
     {
         $usuario = UsuarioModel::where("email", "=", $request->email)->first();
-        
+
         if (password_verify($request->senha,  $usuario->senha)) {
 
             $request->session()->put("usuario_logado", $usuario->email);

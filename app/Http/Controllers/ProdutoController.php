@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\ProdutoModel;
 use Illuminate\Http\Request;
 
+
 class ProdutoController extends Controller
 {
-    public $model;
 
     public function listar_produtos(Request $request)
     {
-        if (!empty($request->session()->get("usuario_logado"))) {
 
-            $dados = ProdutoModel::all();
 
-            return view("Produtos", ["produtos" => $dados]);
-        }
-        return view("login");
+        $dados = ProdutoModel::all();
+
+        return view("Produtos", ["produtos" => $dados]);
     }
+
+
 
     public function cadastrar(Request $request)
     {
