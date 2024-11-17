@@ -33,7 +33,31 @@ O projeto tem o intuito de desmostrar conhecimento a respeito da matéria, para 
     </tr>
     <tr>
         <td>GET</td>
-        <td>/produtos/listar</td>
+        <td>/</td>
+    </tr>
+     <tr>
+        <td>GET</td>
+        <td>/login</td>
+    </tr>
+     <tr>
+        <td>GET</td>
+        <td>/cadastrar</td>
+    </tr>
+     <tr>
+        <td>POST</td>
+        <td>/cadastrar_user</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/produtos</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/alterar_produto/{id}</td>
+    </tr>
+     <tr>
+        <td>POST</td>
+        <td>/alterar_produto/{id}</td>
     </tr>
 </table>
 
