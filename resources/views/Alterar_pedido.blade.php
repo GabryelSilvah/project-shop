@@ -59,7 +59,7 @@
                 <label for="">Quantidade:</label>
                 <input type="text" name="quantidade_pedidos" class="input_comum" value="<?php echo $pedido['quant_pedido']; ?>" required>
 
-                <button type="submit">Concluír Pedido</button>
+                <button type="submit">Alterar Pedido</button>
                 <a href="/listar_pedidos">Voltar</a>
 
                 <?php
