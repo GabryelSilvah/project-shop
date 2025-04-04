@@ -8,10 +8,9 @@
 </p>
 
 ## Sobre
-Projeto de sistema de cadastramento de produos e gerenciamento de pedidos. O projeto foi desenvolvido em php laravel 11.
-Esse projeto partiu de uma atividade requisitada na matéria de linguagens tecnica de programação. O projeto é bem simples,
-permite cadastrar, listar, atualizar e excluir pedidos. Também permite que a pessoa responsável pelo gerenciamento do sistema
-cadastre pedidos, altere, liste e delete pedidos. 
+Sistema de registro de produos e gerenciamento de pedidos. O projeto foi desenvolvido em php laravel 11.
+Objetivo do projeto, atividade requisitada na matéria de linguagens tecnica de programação. O projeto é bem simples,
+permite cadastrar, listar, atualizar e excluir pedidos.
 
 O projeto tem o intuito de desmostrar conhecimento a respeito da matéria, para que assim possa ser avaliado e validado.
 
